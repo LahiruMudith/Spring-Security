@@ -36,11 +36,12 @@ public class AuthService {
             throw new RuntimeException("User Already Registered");
         }
 
+        Role role = Role.valueOf(registerDTO.getRole().isEmpty() ? "USER" : "ADMIN");
 
         User user = User.builder()
                 .username(registerDTO.getUsername())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
-                .role(Role.valueOf(registerDTO.getRole()))
+                .role(role)
                 .build();
         userRepository.save(user);
         return "User Registered Successfully";
