@@ -22,10 +22,13 @@ $("#signInButton").on("click", function() {
         })
         .then(function (data){
             document.cookie = `token=${data.data.accessToken}; path=/; max-age=3600;`;
+            document.cookie = `username=${data.data.username}; path=/; max-age=3600;`;
+            document.cookie = `role=${data.data.role}; path=/; max-age=3600;`;
             window.location.href = "dashboard.html"; // Redirect to home page
         })
         .catch(function(error) {
             alert("Error: " + error.message);
             console.log(`Error: ${error.message}`);
-        });
+        }
+        );
 });

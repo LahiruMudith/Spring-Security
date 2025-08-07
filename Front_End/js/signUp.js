@@ -11,6 +11,7 @@ $("#signupButton").on("click", function (e) {
             method: "POST",
             body: JSON.stringify({
                 "username":`${username}`,
+                "name":`${fullName}`,
                 "password":`${password}`,
                 "role":`${password}`
             })

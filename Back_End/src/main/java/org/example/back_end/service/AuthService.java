@@ -28,7 +28,7 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(authDTO.getUsername());
-        return new AuthResponseDTO(token);
+        return new AuthResponseDTO(token, user.getUsername(), user.getRole().name());
     }
 
     public String register(RegisterDTO registerDTO){
@@ -36,10 +36,12 @@ public class AuthService {
             throw new RuntimeException("User Already Registered");
         }
 
-        Role role = Role.valueOf(registerDTO.getRole().isEmpty() ? "USER" : "ADMIN");
+        Role role = Role.valueOf(registerDTO.getRole().isBlank() ? "ADMIN" : "USER");
+        System.out.println(role);
 
         User user = User.builder()
                 .username(registerDTO.getUsername())
+                .name(registerDTO.getName())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                 .role(role)
                 .build();
